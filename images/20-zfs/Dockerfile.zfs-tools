@@ -1,5 +1,5 @@
-FROM ubuntu:bionic
-# FROM arm64=arm64v8/ubuntu:bionic
+FROM ubuntu:focal
+# FROM arm64=arm64v8/ubuntu:focal
 
 RUN apt-get update \
     && apt-get install -yq python \
@@ -19,16 +19,18 @@ ADD lib/udev/rules.d/69-vdev.rules /lib/udev/rules.d/69-vdev.rules
 ADD lib/udev/rules.d/90-zfs.rules /lib/udev/rules.d/90-zfs.rules
 
 # fix build warnings
-RUN mv /usr/local/lib/libnvpair.so.1 /usr/local/lib/libnvpair.so.1.file
-RUN ln -s /usr/local/lib/libnvpair.so.1.file /usr/local/lib/libnvpair.so.1
-RUN mv /usr/local/lib/libzfs_core.so.1 /usr/local/lib/libzfs_core.so.1.file
-RUN ln -s /usr/local/lib/libzfs_core.so.1.file /usr/local/lib/libzfs_core.so.1
-RUN mv /usr/local/lib/libuutil.so.1 /usr/local/lib/libuutil.so.1.file
-RUN ln -s /usr/local/lib/libuutil.so.1.file /usr/local/lib/libuutil.so.1
-RUN mv /usr/local/lib/libzfs.so.2 /usr/local/lib/libzfs.so.2.file
-RUN ln -s /usr/local/lib/libzfs.so.2.file /usr/local/lib/libzfs.so.2
-RUN mv /usr/local/lib/libzpool.so.2 /usr/local/lib/libzpool.so.2.file
-RUN ln -s /usr/local/lib/libzpool.so.2.file /usr/local/lib/libzpool.so.2
+RUN mv /usr/local/lib/libnvpair.so.3 /usr/local/lib/libnvpair.so.3.file
+RUN ln -s /usr/local/lib/libnvpair.so.3.file /usr/local/lib/libnvpair.so.3
+RUN mv /usr/local/lib/libzfs_core.so.3 /usr/local/lib/libzfs_core.so.3.file
+RUN ln -s /usr/local/lib/libzfs_core.so.3.file /usr/local/lib/libzfs_core.so.3
+RUN mv /usr/local/lib/libuutil.so.3 /usr/local/lib/libuutil.so.3.file
+RUN ln -s /usr/local/lib/libuutil.so.3.file /usr/local/lib/libuutil.so.3
+RUN mv /usr/local/lib/libzfs.so.4 /usr/local/lib/libzfs.so.4.file
+RUN ln -s /usr/local/lib/libzfs.so.4.file /usr/local/lib/libzfs.so.4
+RUN mv /usr/local/lib/libzpool.so.4 /usr/local/lib/libzpool.so.4.file
+RUN ln -s /usr/local/lib/libzpool.so.4.file /usr/local/lib/libzpool.so.4
+RUN mv /usr/local/lib/libzfsbootenv.so.1 /usr/local/lib/libzfsbootenv.so.1.file
+RUN ln -s /usr/local/lib/libzfsbootenv.so.1.file /usr/local/lib/libzfsbootenv.so.1
 
 ENV PATH=$PATH:/usr/local/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
