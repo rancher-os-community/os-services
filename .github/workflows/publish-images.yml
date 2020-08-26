@@ -1,0 +1,22 @@
+name: publish
+
+on:
+  push:
+    branches:
+      - community-dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build with dapper
+      run: |
+        docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/src/ -w /src rancher/dapper:1.10.3 dapper ci
+
+    - name: Log into registry
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+    - name: Push images to Docker Hub
+      run: ${PWD}/dist/publish.sh

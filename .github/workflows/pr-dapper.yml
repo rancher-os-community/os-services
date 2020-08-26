@@ -1,0 +1,12 @@
+name: PR
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Test with dapper
+      run: |
+        docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/src/ -w /src rancher/dapper:1.10.3 dapper ci
