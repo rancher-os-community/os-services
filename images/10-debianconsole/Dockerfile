@@ -1,14 +1,16 @@
-FROM rancher/os-debianconsole-base
-# FROM amd64=debian:stretch arm64=arm64v8/debian:stretch
+FROM debian:stable-slim
 
 COPY build/sshd_config.append.tpl /etc/ssh/
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends iptables openssh-server rsync locales \
-                           sudo vim less curl ca-certificates psmisc htop kmod iproute2 \
+                           sudo less curl ca-certificates psmisc htop kmod iproute2 \
                            net-tools bash-completion wget \
+                           nano open-iscsi iputils-ping \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /etc/ssh/*key* \
+    && find /usr/share/i18n/charmaps -not -path /usr/share/i18n/charmaps/UTF-8.gz -name '*.gz' -exec rm -rf {} \; \
+    && find /usr/share/i18n/locales -not -path /usr/share/i18n/locales/en_US -name '*_*' -exec rm -rf {} \; \
     && locale-gen en_US.UTF-8 \
     && addgroup --gid 1100 rancher \
     && addgroup --gid 1101 docker \
