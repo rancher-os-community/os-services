@@ -10,10 +10,12 @@ echo "Images ready to push:"
 cat dist/images
 echo
 
-echo 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sudo sh -s -- -b /usr/local/bin' > dist/scan.sh
+echo 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sudo sh -s -- -b /usr/local/bin' >> dist/scan.sh
 echo 'sudo chmod 0755 /usr/local/bin/trivy' >> dist/scan.sh
 cat dist/images | sed 's/^/trivy image --exit-code 1 --no-progress --format table --ignore-unfixed --severity CRITICAL,HIGH /' >> dist/scan.sh
 chmod 755 dist/scan.sh
 
-cat dist/images | sed 's/^/docker push /' > dist/publish.sh
+cat dist/images | sed 's/^/docker push /' >> dist/publish.sh
 chmod 755 dist/publish.sh
+
+rm dist/images

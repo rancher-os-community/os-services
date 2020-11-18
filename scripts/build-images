@@ -35,10 +35,10 @@ function build() {
 
     tag="${OS_REPO}/${name}:${version}${SUFFIX}"
 
-    if [[ "$LOCALARCH" != "$ARCH" ]]; then
-        echo "${tag} ($LOCALARCH) is not for this arch $ARCH, skipping"
-        return
-    fi
+    # if [[ "$LOCALARCH" != "$ARCH" ]]; then
+    #     echo "${tag} ($LOCALARCH) is not for this arch $ARCH, skipping"
+    #     return
+    # fi
 
     if docker_tag_exists "${OS_REPO}/${name}" "${version}${SUFFIX}"; then
         echo "${tag} EXISTS on Docker Hub, skipping"
@@ -47,10 +47,10 @@ function build() {
 
     if [ $(docker images -q ${tag}) ]; then
         echo "== ${tag} EXISTS locally, needs pushing"
-        if [ "${name}" == "os-docker" ]; then
-            docker run --rm -i ${tag} /engine/docker version | grep Version
-            docker run --rm -i ${tag} /engine/docker version | grep Arch
-        fi
+        # if [ "${name}" == "os-docker" ]; then
+        #     docker run --rm -i ${tag} /engine/docker version | grep Version
+        #     docker run --rm -i ${tag} /engine/docker version | grep Arch
+        # fi
     else
         echo Building ${tag} from ${build_dir}
         if [ -e ${build_dir}/prebuild.sh ]; then
@@ -59,10 +59,10 @@ function build() {
 
         if dapper -d --build -f ${build_dir}/Dockerfile -- -t ${OS_REPO}/${name} ${build_dir}; then
             docker tag ${OS_REPO}/${name} ${tag}
-            if [ "${name}" == "os-docker" ]; then
-                docker run --rm -i ${tag} /engine/docker version | grep Version
-                docker run --rm -i ${tag} /engine/docker version | grep Arch
-            fi
+            # if [ "${name}" == "os-docker" ]; then
+            #     docker run --rm -i ${tag} /engine/docker version | grep Version
+            #     docker run --rm -i ${tag} /engine/docker version | grep Arch
+            # fi
         elif [ "$?" != "42" ]; then
             exit 1
         else
