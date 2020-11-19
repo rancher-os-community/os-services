@@ -1,5 +1,5 @@
 console:
-  image: ${REGISTRY_DOMAIN}/burmilla/os-debianconsole:v1.9.0${SUFFIX}
+  image: ${REGISTRY_DOMAIN}/burmilla/os-debianconsole:v2.0.0-beta2${SUFFIX}
   command: ros console-init
   privileged: true
   labels:
