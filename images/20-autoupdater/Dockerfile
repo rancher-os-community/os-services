@@ -1,0 +1,2 @@
+FROM bash
+COPY autoupdater /

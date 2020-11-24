@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -z "${VERSION_URL}" ]; then
+    echo "Environment variable VERSION_URL is not configured"
+    exit 0
+fi
+
+current_version="burmilla/os:$(ros os version)"
+recommend_version=$(wget ${VERSION_URL} -q -O -)
+if [ $(echo ${recommend_version} | cut -d':' -f1) = 'burmilla/os' ]; then
+    if [ "${current_version}" != "${recommend_version}" ]; then
+        UPTIME=$(cat /proc/uptime | grep -o '^[0-9]\+')
+        if [ $UPTIME -gt 900 ]; then
+            echo "Upgrading to ${recommend_version}"
+            ros os upgrade --image ${recommend_version} --force
+        fi
+    fi
+else
+    echo "$recommend_version is invalid version"
+fi

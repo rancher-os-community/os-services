@@ -15,5 +15,6 @@ services:
 - modem-manager
 - waagent
 - virtualbox-tools
+- auto-updater
 engines:
 - docker-19.03.13
