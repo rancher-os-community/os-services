@@ -1,5 +1,5 @@
 FROM gcc:7.4.0 as build-essential
-ENV KERNEL_VERSION 4.14.206-burmilla
+ENV KERNEL_VERSION 4.14.211-burmilla
 
 ENV KERNEL_HEADERS https://github.com/burmilla/os-kernel/releases/download/v${KERNEL_VERSION}/build-linux-${KERNEL_VERSION}-x86.tar.gz
 ENV KERNEL_BASE https://github.com/burmilla/os-kernel/releases/download/v${KERNEL_VERSION}/linux-${KERNEL_VERSION}-x86.tar.gz
