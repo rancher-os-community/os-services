@@ -8,8 +8,9 @@ volume-nfs:
   privileged: true
   restart: always
   volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
     - /run/docker/plugins:/run/docker/plugins:rw
-    - /mnt/volumes/netshare/nfs:/mnt:shared
+    - /mnt/nfs:/mnt/nfs:shared
   labels:
     io.rancher.os.scope: system
     io.rancher.os.after: docker

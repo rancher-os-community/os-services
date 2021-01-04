@@ -8,6 +8,7 @@ volume-efs:
   privileged: true
   restart: always
   volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
     - /run/docker/plugins:/run/docker/plugins:rw
     - /mnt/volumes/netshare/efs:/mnt:shared
   labels:
