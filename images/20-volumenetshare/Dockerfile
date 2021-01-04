@@ -3,7 +3,7 @@ FROM alpine:latest
 
 ARG netshare_plugin_version=0.36
 
-RUN apk add --update wget nfs-utils ca-certificates &&\
+RUN apk add --update wget cifs-utils nfs-utils ca-certificates &&\
     rm -rf /var/cache/apk/* &&\
     update-ca-certificates
 
