@@ -1,0 +1,17 @@
+k3s:
+  image: ${REGISTRY_DOMAIN}/{K3S_REPO}/k3s:{K3S_VERSION}
+  entrypoint: /etc/rancher/k3s/start-k3s.sh
+  environment:
+  - K3S_*
+  labels:
+    io.rancher.os.scope: system
+    io.rancher.os.after: console
+  net: host
+  pid: host
+  ipc: host
+  uts: host
+  privileged: true
+  restart: always
+  volumes:
+  - /etc/k3s:/etc/rancher/k3s
+  - /var/lib/rancher/k3s:/var/lib/rancher/k3s
