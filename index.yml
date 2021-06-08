@@ -25,3 +25,4 @@ engines:
 - docker-20.10.2
 - docker-20.10.3
 - docker-20.10.5
+- docker-20.10.7
